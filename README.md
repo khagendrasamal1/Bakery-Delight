@@ -1,6 +1,6 @@
 # Bakery Delight
 
-A visually appealing bakery website built with Flask and MongoDB Atlas, featuring an extensive menu, user authentication, a shopping cart, and a chatbot for enhanced user interaction.
+A visually appealing bakery website built with HTML, CSS, JS, Flask and MongoDB Atlas, featuring an extensive menu, user authentication, a shopping cart, and a chatbot for enhanced user interaction.
 
 ## Demo
 Check out the live site: [Bakery Delight](https://bakery-delight.onrender.com/)
