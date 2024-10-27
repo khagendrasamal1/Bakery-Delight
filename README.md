@@ -34,8 +34,11 @@ Users can browse through item categories, add items to their cart, view dish det
 
 ## Project Structure
 
--**static**: Contains all static assets (CSS, JavaScript, images).
--**templates**: HTML templates for pages (Home, Login, Signup).
--**app.py**: Flask application’s main entry point.
--**forms.py**: Flask forms for user authentication.
--**requirements.txt**: Lists all dependencies.
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Flask
+- **Database**: MongoDB Atlas
+- **static**: Contains all static assets (CSS, JavaScript, images).
+- **templates**: HTML templates for pages (Home, Login, Signup).
+- **app.py**: Flask application’s main entry point.
+- **forms.py**: Flask forms for user authentication.
+- **requirements.txt**: Lists all dependencies.
