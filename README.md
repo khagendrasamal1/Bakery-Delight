@@ -34,21 +34,8 @@ Users can browse through item categories, add items to their cart, view dish det
 
 ## Project Structure
 
-Bakery-Delight/
-├── static/
-│   ├── css/
-│   ├── js/
-│   ├── images/
-├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── signup.html
-├── app.py
-├── forms.py
-├── requirements.txt
-
--static: Contains all static assets (CSS, JavaScript, images).
--templates: HTML templates for pages (Home, Login, Signup).
--app.py: Flask application’s main entry point.
--forms.py: Flask forms for user authentication.
--requirements.txt: Lists all dependencies.
+-**static**: Contains all static assets (CSS, JavaScript, images).
+-**templates**: HTML templates for pages (Home, Login, Signup).
+-**app.py**: Flask application’s main entry point.
+-**forms.py**: Flask forms for user authentication.
+-**requirements.txt**: Lists all dependencies.
