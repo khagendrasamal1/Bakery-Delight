@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Delight</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <script src="/static/js/script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+<!-- Navigation Bar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="Bakery Logo" class="logo-img">
+            Bakery Delight
+        </div>
+        <div class="menu-toggle">&#9776;</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Menu∇</a>
+                <div class="dropdown-content">
+                    <a href="#cookies">Cookies</a>
+                    <a href="#cakes">Cakes</a>
+                    <a href="#buns">Buns and Breads</a>
+                    <a href="#croissant">Croissant</a>
+                    <a href="#donuts">Donuts</a>
+                    <a href="#sandwiches">Sandwiches and Wraps</a>
+                    <a href="#burgers">Burgers</a>
+                    <a href="#pizza">Pizzas</a>
+                    <a href="#coffee">Coffee</a>
+                    <a href="#smoothies">Smoothies</a>
+                </div>
+            </li>
+            <li><a href="#your-cart"><i class="fas fa-shopping-cart"></i></a></li>
+            <li><a href="#contact"><i class="fas fa-phone-alt"></i></a></li>
+            <!-- Log In and Sign Up Links -->
+            {% if session.username %}
+                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Log In</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+   
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Bakery Delight</h1>
+            <p>Freshly baked goods, delivered to your door!</p>
+        </div>
+    </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <img src="/static/images/about-us.jpeg" alt="Bakery Image" class="about-image">
+                <div class="about-text">
+                    <p>At Bakery Delight, we believe in baking with love and passion. Our skilled bakers use only the finest ingredients to create delicious pastries, cakes, and breads. Whether you're celebrating a special occasion or simply craving something sweet, we have something for everyone.</p>
+                    <p>Our commitment to quality ensures that every bite is a delightful experience. Join us in savoring the sweetness of life, one treat at a time!</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="notification" class="hidden"></div>
+
+<!-- Featured Items Section -->
+<section class="featured-items" id="menu">
+    <h2>Featured Items</h2>
+
+    <div class="section" id="cookies">
+        <h3>Cookies🍪</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/Chocolate Chip.jpeg" alt="Lemon Cake">
+                <h4>Chocolate Chip Cookies</h4>
+                <p>₹125.00</p>
+                <button class="add-to-bag" data-item-id="39" data-item-name="Chocolate Chip Cookies" data-item-price="125.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Biscoff.jpeg" alt="Chocolate Cake">
+                <h4>Biscoff Cookies</h4>
+                <p>₹200.00</p>
+                <button class="add-to-bag" data-item-id="34" data-item-name="Biscoff Cookies" data-item-price="200.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Speculoos.jpeg" alt="Vanilla Cake">
+                <h4>Speculoos Cookies</h4>
+                <p>₹250.00</p>
+                <button class="add-to-bag" data-item-id="35" data-item-name="Speculoos Cookies" data-item-price="250.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Pingoli.jpeg" alt="Red Velvet Cake">
+                <h4>Pignoli Cookies</h4>
+                <p>₹250.00</p>
+                <button class="add-to-bag" data-item-id="36" data-item-name="Pignoli Cookies" data-item-price="250.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Hazelnut Cookies.jpeg" alt="Marble Cake">
+                <h4>Hazelnut Cookies</h4>
+                <p>₹120.00</p>
+                <button class="add-to-bag" data-item-id="37" data-item-name="Hazelnut Cookies" data-item-price="120.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Chocolate Macaron.jpeg" alt="Carrot Cake">
+                <h4>Chocolate Macaron</h4>
+                <p>₹200.00</p>
+                <button class="add-to-bag" data-item-id="38" data-item-name="Chocolate Macaron" data-item-price="200.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section" id="cakes">
+        <h3>Cakes🍰</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/chocolate cake.jpeg" alt="Chocolate Cake">
+                <h4>Chocolate Cake</h4>
+                <p>₹120.00</p>
+                <button class="add-to-bag" data-item-id="1" data-item-name="Chocolate Cake" data-item-price="120.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/vanilla cake.jpeg" alt="Vanilla Cake">
+                <h4>Classic Vanilla Cake</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="2" data-item-name="Classic Vanilla Cake" data-item-price="120.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/red velvet cake.jpeg" alt="Red Velvet Cake">
+                <h4>Red Velvet Cake</h4>
+                <p>₹110.00</p>
+                <button class="add-to-bag" data-item-id="3" data-item-name="Red Velvet Cake" data-item-price="110.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/marble cake.jpeg" alt="Marble Cake">
+                <h4>Marble Cake</h4>
+                <p>₹120.00</p>
+                <button class="add-to-bag" data-item-id="4" data-item-name="Marble Cake" data-item-price="120.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/cheese cake.jpeg" alt="Carrot Cake">
+                <h4>Cheese Cake</h4>
+                <p>₹105.00</p>
+                <button class="add-to-bag" data-item-id="5" data-item-name="Cheese Cake" data-item-price="105.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/lemon cake.jpeg" alt="Lemon Cake">
+                <h4>Lemon Cake</h4>
+                <p>₹95.00</p>
+                <button class="add-to-bag" data-item-id="6" data-item-name="Lemon Cake" data-item-price="95.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buns and Breads Section -->
+    <div class="section"  id="buns">
+        <h3>Buns and Breads🍞</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/cinnamon roll.jpeg" alt="Cinnamon Roll">
+                <h4>Cinnamon Roll</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="7" data-item-name="Cinnamon Roll" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/honey buns.jpeg" alt="Honey Buns">
+                <h4>Honey Buns</h4>
+                <p>₹90.00</p>
+                <button class="add-to-bag" data-item-id="8" data-item-name="Honey Buns" data-item-price="90.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/apple cinnamon buns.jpeg" alt="Apple Cinnamon Buns">
+                <h4>Apple Cinnamon Buns</h4>
+                <p>₹110.00</p>
+                <button class="add-to-bag" data-item-id="9" data-item-name="Apple Cinnamon Buns" data-item-price="110.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Focaccia.jpeg" alt="Cinnamon Roll">
+                <h4>Focaccia</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="31" data-item-name="Focaccia" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Garlic Cheese Bread.jpeg" alt="Honey Buns">
+                <h4>Garlic Cheese Bread</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="32" data-item-name="Garlic Cheese Bread" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Bialys.jpeg" alt="Apple Cinnamon Buns">
+                <h4>Bialy</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="33" data-item-name="Bialy" data-item-price="100.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section"  id="croissant">
+
+        <h3>Croissant🥐</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/plain croissant.jpeg" alt="Plain Croissant">
+                <h4>Plain Croissant</h4>
+                <p>₹60.00</p>
+                <button class="add-to-bag" data-item-id="10" data-item-name="Plain Croissant" data-item-price="60.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/chocolate croissant.jpeg" alt="Chocolate Croissant">
+                <h4>Chocolate Croissant</h4>
+                <p>₹80.00</p>
+                <button class="add-to-bag" data-item-id="11" data-item-name="Chocolate Croissant" data-item-price="80.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/almond croissant.jpeg" alt="Almond Croissant">
+                <h4>Almond Croissant</h4>
+                <p>₹90.00</p>
+                <button class="add-to-bag" data-item-id="12" data-item-name="Almond Croissant" data-item-price="90.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section"  id="donuts">
+
+        <h3>Donuts🍩</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/Copycat Krispy Kreme Doughnuts - Cooking Classy.jpeg" alt="Plain Croissant">
+                <h4>Krispy Kreme Donuts</h4>
+                <p>₹150.00</p>
+                <button class="add-to-bag" data-item-id="40" data-item-name="Krispy Kreme Donuts" data-item-price="150.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Fluffy Chocolate Glazed Donuts (Yeast Donuts) - Food Duchess.jpeg" alt="Chocolate Croissant">
+                <h4>Fluffy Chocolate Glazed Donuts</h4>
+                <p>₹150.00</p>
+                <button class="add-to-bag" data-item-id="41" data-item-name="Fluffy Chocolate Glazed Donuts" data-item-price="150.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Jelly Donuts.jpeg" alt="Almond Croissant">
+                <h4>Jelly Donuts</h4>
+                <p>₹150.00</p>
+                <button class="add-to-bag" data-item-id="42" data-item-name="Jelly Donuts" data-item-price="150.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sandwiches and Wraps Section -->
+    <div class="section"  id="sandwiches">
+
+        <h3>Sandwiches and Wraps🌯</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/grilled cheese sand.jpeg" alt="Grilled Cheese Sandwich">
+                <h4>Grilled Cheese Sandwich</h4>
+                <p>₹120.00</p>
+                <button class="add-to-bag" data-item-id="13" data-item-name="Grilled Cheese Sandwich" data-item-price="120.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/club sand.jpeg" alt="Club Sandwich">
+                <h4>Club Sandwich</h4>
+                <p>₹150.00</p>
+                <button class="add-to-bag" data-item-id="14" data-item-name="Club Sandwich" data-item-price="150.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/chicken salad.jpeg" alt="Chicken Salad Sandwich">
+                <h4>Chicken Salad Sandwich</h4>
+                <p>₹140.00</p>
+                <button class="add-to-bag" data-item-id="15" data-item-name="Chicken Salad Sandwich" data-item-price="140.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/caeser.jpeg" alt="Chicken Caesar Wrap">
+                <h4>Chicken Caesar Wrap</h4>
+                <p>₹130.00</p>
+                <button class="add-to-bag" data-item-id="16" data-item-name="Chicken Caesar Wrap" data-item-price="130.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/turkey wrap.jpeg" alt="Turkey Wrap">
+                <h4>Turkey Wrap</h4>
+                <p>₹125.00</p>
+                <button class="add-to-bag" data-item-id="17" data-item-name="Turkey Wrap" data-item-price="125.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/veggie wrap.jpeg" alt="Veggie Wrap">
+                <h4>Veggie Wrap</h4>
+                <p>₹110.00</p>
+                <button class="add-to-bag" data-item-id="18" data-item-name="Veggie Wrap" data-item-price="110.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Burgers Section -->
+    <div class="section" id="burgers">
+        <h3>Burgers🍔</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/cheeseburger.jpeg" alt="Classic Cheeseburger">
+                <h4>Classic Cheese Burger</h4>
+                <p>₹200.00</p>
+                <button class="add-to-bag" data-item-id="19" data-item-name="Classic Cheese Burger" data-item-price="200.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Chicken buger.jpeg" alt="Bacon Cheeseburger">
+                <h4>Double-Decker Burger</h4>
+                <p>₹220.00</p>
+                <button class="add-to-bag" data-item-id="20" data-item-name="Double-Decker Burger" data-item-price="220.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/veggie burger.jpeg" alt="Veggie Burger">
+                <h4>Veggie Burger</h4>
+                <p>₹180.00</p>
+                <button class="add-to-bag" data-item-id="21" data-item-name="Veggie Burger" data-item-price="180.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pizza Section -->
+    <div class="section"  id="pizza">
+
+        <h3>Pizzas🍕</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/Margherita pizza.jpeg" alt="Margherita">
+                <h4>Margherita Pizza</h4>
+                <p>₹350.00</p>
+                <button class="add-to-bag" data-item-id="22" data-item-name="Margherita Pizza" data-item-price="350.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/pepperoni pizza.jpeg" alt="Pepperoni">
+                <h4>Pepperoni Pizza</h4>
+                <p>₹400.00</p>
+                <button class="add-to-bag" data-item-id="23" data-item-name="Pepperoni Pizza" data-item-price="400.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Crust Supreme.jpeg" alt="Supreme">
+                <h4>Crust-Supreme Pizza</h4>
+                <p>₹450.00</p>
+                <button class="add-to-bag" data-item-id="24" data-item-name="Crust-Supreme Pizza" data-item-price="450.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/hawaiian pizza.jpeg" alt="Hawaiian">
+                <h4>Hawaiian Pizza</h4>
+                <p>₹500.00</p>
+                <button class="add-to-bag" data-item-id="25" data-item-name="Hawaiian Pizza" data-item-price="500.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/vegetarian-pizza.jpg" alt="Vegetarian">
+                <h4>Vegetarian Pizza</h4>
+                <p>₹400.00</p>
+                <button class="add-to-bag" data-item-id="26" data-item-name="Vegetarian Pizza" data-item-price="400.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/meat lovers.png" alt="Meat Lover's">
+                <h4>Meat Lover's Pizza</h4>
+                <p>₹550.00</p>
+                <button class="add-to-bag" data-item-id="27" data-item-name="Meat Lover's Pizza" data-item-price="550.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coffee Section -->
+    <div class="section"  id="coffee">
+
+        <h3>Coffee☕</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/Mocha recipe.jpeg" alt="Margherita">
+                <h4>Mocha</h4>
+                <p>₹150.00</p>
+                <button class="add-to-bag" data-item-id="28" data-item-name="Mocha" data-item-price="150.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/Mocha Cappuccino.jpeg" alt="Pepperoni">
+                <h4>Cappuccino</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="29" data-item-name="Cappuccino" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/coffee latte cup.jpeg" alt="Supreme">
+                <h4>Latte</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="30" data-item-name="Latte" data-item-price="100.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smoothies Section -->
+    <div class="section"  id="smoothies">
+
+        <h3>Smoothies🥤</h3>
+        <div class="items-grid">
+            <div class="item">
+                <img src="/static/images/strawberry.png" alt="Margherita">
+                <h4>Strawberry Smoothie</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="31" data-item-name="Strawberry Smoothie" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/mango.png" alt="Pepperoni">
+                <h4>Mango Smoothie</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="32" data-item-name="Mango Smoothie" data-item-price="100.00">Add to Cart</button>
+            </div>
+            <div class="item">
+                <img src="/static/images/banana.jpg" alt="Supreme">
+                <h4>Banana Smoothie</h4>
+                <p>₹100.00</p>
+                <button class="add-to-bag" data-item-id="33" data-item-name="Banana Smoothie" data-item-price="100.00">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Your Cart Section -->
+<section id="your-cart" class="cart-section">
+    <h2>Your Cart 🛒</h2>
+    <div id="cart-items">
+        <p>Your cart is empty</p> <!-- Default empty message -->
+    </div>
+    <div id="cart-summary">
+        <h3 id="cart-total">Total: ₹0.00</h3>
+        <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+    </div>
+
+    <div id="payment-section">
+        <h2>Payment Information</h2>
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="payment-method">Select Payment Method</label>
+                <select id="payment-method" required>
+                    <option value="" disabled selected>Select a method</option>
+                    <option value="credit-card">Credit/Debit Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="qr-code">QR Code</option>
+                    <option value="net-banking">Net Banking</option>
+                </select>
+            </div>
+    
+            <!-- Credit/Debit Card Details -->
+            <div id="card-details" class="payment-option">
+                <h3>Credit/Debit Card Details</h3>
+                <div class="form-group">
+                    <label for="card-name">Cardholder Name</label>
+                    <input type="text" id="card-name" placeholder="Enter your name" required />
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="Enter your card number" required />
+                </div>
+                <div class="form-group">
+                    <label for="expiry-date">Expiry Date</label>
+                    <input type="text" id="expiry-date" placeholder="MM/YY" required />
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="CVV" required />
+                </div>
+            </div>
+    
+            <!-- UPI Payment Details -->
+            <div id="upi-details" class="payment-option hidden">
+                <h3>UPI Payment</h3>
+                <div class="form-group">
+                    <label for="upi-id">UPI ID</label>
+                    <input type="text" id="upi-id" placeholder="Enter your UPI ID" required />
+                </div>
+            </div>
+    
+            <!-- QR Code Payment Instructions -->
+            <div id="qr-code-details" class="payment-option hidden">
+                <h3>QR Code Payment</h3>
+                <p>To pay using QR Code, scan the code displayed on the screen and follow the instructions.</p>
+                <img src="/static/images/qr_img.png" alt="QR Code" style="max-width: 100%; height: auto;" />
+            </div>
+    
+            <!-- Net Banking -->
+            <div id="net-banking-details" class="payment-option hidden">
+                <h3>Net Banking</h3>
+                <p>Select your bank from the list below:</p>
+                <select id="bank-select" required>
+                    <option value="" disabled selected>Select your bank</option>
+                    <option value="bank1">Bank 1</option>
+                    <option value="bank2">Bank 2</option>
+                    <option value="bank3">Bank 3</option>
+                </select>
+            </div>
+    
+            <button type="submit" id="pay-now" class="pay-now">Pay Now</button>
+        </form>
+    </div>
+    
+    </div>
+    
+    
+</section>
+
+<!-- Chatbot Icon -->
+<div id="chatbot-icon">
+    🤖
+</div>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container">
+    <button id="minimize-chatbot" style="float: right; margin: 5px;">❌</button> <!-- Minimize Button -->
+    <iframe
+        allow="microphone;"
+        width="400"
+        height="500"
+        src="https://console.dialogflow.com/api-client/demo/embedded/693fcd84-f92b-4a99-b517-224f0dbfa481"
+        style="border: none; width: 100%; height: calc(100% - 40px);"
+    ></iframe>
+</div>
+
+
+<div class="splash-screen" id="splash-screen">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo" class="logo">
+</div>
+
+<!-- Main content of your page -->
+<div class="main-content" style="display: none;">
+    <!-- Your main content goes here -->
+</div>
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <p>If you have any questions, feel free to reach out to us. We're here to help!</p>
+
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p><i class="fas fa-phone-alt"></i> +91 11800 22333</p>
+            <p><i class="fas fa-envelope"></i>info@bakerydelight.com</a></p>
+            <p><i class="fab fa-whatsapp"></i>+91 98765 43210</a></p>
+            <p><i class="fab fa-instagram"></i>bakerydelight</a></p>
+        </div>
+
+        <div class="contact-address">
+            <h3>Our Address</h3>
+            <p><i class="fas fa-map-marker-alt"></i> 123, Baker's Lane, Cuttack, Odisha - 753001</p>
+        </div>
+    </div>
+</section>
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bakery Delight. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
