@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="icon" href="/static/images/logo.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%); /* Gradient background */
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            height: 100vh; /* Full height for background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0; /* Remove default margin */
+        }
+        
+        .form-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #5a5a5a;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .flash-message {
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        /* Flash message styles */
+        .success {
+            color: green;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .danger {
+            color: red;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .warning {
+            color: orange;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .form-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="form-box">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="flash-message {{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <form method="POST" action="{{ url_for('login') }}">
+                {{ form.hidden_tag() }}
+                <div>{{ form.username.label }} {{ form.username(size=32) }}</div>
+                <div>{{ form.password.label }} {{ form.password(size=32) }}</div>
+                <div>{{ form.submit() }}</div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
